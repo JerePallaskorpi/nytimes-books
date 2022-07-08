@@ -1,10 +1,17 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
+const path = require('path');
 
-app.get("/", function(req, res) {
-    res.send("It's working!");
+app.use(cors());
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+app.get('/api', (req, res) => {
+    res.send(JSON.stringify({ test: 123 }));
 });
 
-app.listen(4000, () => {
-    console.log("App listening on port 4000");
+app.get('*', (req, res) => {
+    res.sendFile(path.join(`${__dirname}\\../client/build/index.html`));
 });
+
+app.listen(4000);

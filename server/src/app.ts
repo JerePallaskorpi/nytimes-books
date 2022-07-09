@@ -13,5 +13,6 @@ import * as booksController from './controllers/books';
 
 // Api routes
 app.get('/api/categories', booksController.categories);
+app.get('/api/categories/:category', booksController.topByCategory);
 
 export default app;

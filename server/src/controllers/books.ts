@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Category, CategoryResponse } from 'books';
+import { Book, CategoriesResponse, Category, TopByCategoryResponse } from 'books';
 const fetch = require('node-fetch');
 
 /**
@@ -18,7 +18,7 @@ export const categories = async (req: Request, res: Response) => {
             'api-key': process.env.NYT_API_KEY,
         }));
 
-        const responseData: CategoryResponse = await response.json();
+        const responseData: CategoriesResponse = await response.json();
         const parsedData: Category[] = responseData.results.map((category) => {
             return {
                 list_name_encoded: category.list_name_encoded,
@@ -34,3 +34,38 @@ export const categories = async (req: Request, res: Response) => {
         });
     }
 };
+
+/**
+ * TODO: doc
+ * @param req
+ * @param res
+ */
+export const topByCategory = async (req: Request, res: Response) => {
+    const { category } = req.params;
+    const url = `https://api.nytimes.com/svc/books/v3/lists/current/${category}.json`
+
+    try {
+        const response = await fetch(`${url}?` + new URLSearchParams({
+            'api-key': process.env.NYT_API_KEY,
+        }));
+
+        const responseData: TopByCategoryResponse = await response.json();
+
+        const parsedData: Book[] = responseData.results.books.map((book) => {
+            return {
+                title: book.title,
+                author: book.author,
+                primary_isbn10: book.primary_isbn10,
+                book_image: book.book_image,
+                rank: book.rank,
+            }
+        })
+
+        res.status(200).send(parsedData);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({
+            error: 'Something went wrong while fetching top books by category.',
+        });
+    }
+}

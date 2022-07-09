@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import CategoriesView from './CategoriesView';
 import { getCategories } from '../../../../api/books';
-import { Category } from '@server/types/books';
 import CategoryBooks from './category-books/CategoryBooks';
 import { sleep } from '../../../../utils';
+import { Category } from '../../../../../../server/src/types/books';
 
 interface IState {
     loading: boolean;

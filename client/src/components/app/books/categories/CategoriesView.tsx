@@ -1,6 +1,6 @@
 import React from 'react';
-import { Category } from '@server/types/books';
 import SingleCategoryView from './single-category/SingleCategoryView';
+import { Category } from '../../../../../../server/src/types/books';
 
 interface IProps {
     loading: boolean;

@@ -18,9 +18,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "baseUrl": ".",
-    "paths": { "@server/*": ["../server/src/*"] }
+    "jsx": "preserve"
   },
   "include": [
     "src"

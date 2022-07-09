@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Book } from '@server/types/books';
 import { sleep } from '../../../../../utils';
 import { getTopByCategory } from '../../../../../api/books';
 import SingleCategoryBookView from './single-category-book/SingleCategoryBookView';
+import { Book } from '../../../../../../../server/src/types/books';
 
 interface IProps {
     selectedCategory: string;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Category } from '@server/types/books';
+import { Category } from '../../../../../../../server/src/types/books';
 
 interface IProps {
     category: Category;

@@ -19,4 +19,19 @@ export type Book = {
     primary_isbn10: string,
     book_image: string,
     rank: number,
+    reviews: BookReview[],
+}
+
+export type BookReviewResponse = {
+    results: BookReview[],
+}
+
+export type BookReview = {
+    url: string,
+    byline: string,
+    summary: string,
+}
+
+export type ErrorResponse = {
+    error: string,
 }

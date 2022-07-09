@@ -6,12 +6,10 @@ const path = require('path');
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../client/build')));
 
-app.get('/api', (req, res) => {
-    res.send(JSON.stringify({ test: 123 }));
-});
+// Controllers
+import * as booksController from "./controllers/books"
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(`${__dirname}\\../client/build/index.html`));
-});
+// Api routes
+app.get("/api/categories", booksController.categories);
 
-app.listen(4000);
+export default app;

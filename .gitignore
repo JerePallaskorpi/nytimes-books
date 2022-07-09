@@ -47,3 +47,7 @@ target/
 ### NetBeans ###
 nbproject/private/
 build/
+
+# Ignore built ts files
+dist/**/*
+/**/*.js

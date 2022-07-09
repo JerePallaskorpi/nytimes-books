@@ -1,6 +1,6 @@
 import React from 'react';
-import Books from './books/Books';
+import Categories from './books/categories/Categories';
 
-const App = () => <Books />
+const App = () => <Categories />
 
 export default App;

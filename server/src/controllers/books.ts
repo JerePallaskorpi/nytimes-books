@@ -19,14 +19,14 @@ export const categories = async (req: Request, res: Response) => {
         }));
 
         const responseData: CategoriesResponse = await response.json();
-        const parsedData: Category[] = responseData.results.map((category) => {
+        const categories: Category[] = responseData.results.map((category) => {
             return {
                 list_name_encoded: category.list_name_encoded,
                 display_name: category.display_name,
             }
         })
 
-        res.status(200).send(parsedData);
+        res.status(200).send(categories);
     } catch (err) {
         console.error(err);
         res.status(500).send({

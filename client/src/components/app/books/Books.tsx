@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import BooksView from './BooksView';
 import { getCategories } from '../../../api/books';
+import { Category } from '@server/types/books';
 
-const initialState = {
+interface IState {
+    loading: boolean;
+    list: Category[];
+}
+
+const initialState: IState = {
     loading: false,
     list: [],
 }

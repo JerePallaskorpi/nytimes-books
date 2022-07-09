@@ -1,8 +1,9 @@
 import React from 'react';
+import { Category } from '@server/types/books';
 
 interface IProps {
     loading: boolean;
-    list: any; // TODO: Add Custom type
+    list: Category[];
 }
 
 const BooksView = (props: IProps) => {

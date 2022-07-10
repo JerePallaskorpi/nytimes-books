@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { sleep } from '../../../../../utils';
 import { getTopByCategory } from '../../../../../api/books';
 import SingleCategoryBookView from './single-category-book/SingleCategoryBookView';
-import { Book } from '../../../../../../../server/src/types/books';
+import { Book, Category } from '../../../../../../../server/src/types/books';
+import StyledCategoryBooks
+    from '../../../../ui/block/books/categories/category-books/CategoryBooks';
+import FullscreenLoading from '../../../shared/FullscreenLoading';
+import { StyledButton } from '../../../../ui/element/Button';
 
 interface IProps {
-    selectedCategory: string;
-    setSelectedCategory: (selectedCategory: string | null) => void;
+    selectedCategory: Category;
+    setSelectedCategory: (selectedCategory: Category | null) => void;
 }
 
 interface IState {
@@ -16,7 +19,7 @@ interface IState {
 }
 
 const initialState: IState = {
-    loading: false,
+    loading: true,
     books: [],
     fetchError: false,
 }
@@ -31,9 +34,8 @@ const CategoryBooks = (props: IProps) => {
     useEffect(() => {
         const fetchBooks = async () => {
             setLoading(true);
-            await sleep(1000);
             try {
-                const res = await getTopByCategory(selectedCategory);
+                const res = await getTopByCategory(selectedCategory.list_name_encoded);
                 setBooks(res);
             } catch {
                 setFetchError(true);
@@ -45,31 +47,24 @@ const CategoryBooks = (props: IProps) => {
         fetchBooks();
     }, [selectedCategory]);
 
-    if (loading) {
-        return <p>Loading</p>
-    }
+    if (loading) return <FullscreenLoading />
 
-    if (fetchError) {
-        return (
-            <>
-                <div onClick={() => { setSelectedCategory(null) }}>
-                    <p>Go back</p>
-                </div>
-                <p>Error</p>
-            </>
-        )
-    }
+    if (fetchError) return <p>Something went wrong.</p>
 
     return (
-        <>
-            <div onClick={() => { setSelectedCategory(null) }}>
-                <p>Go back</p>
-            </div>
-            <p>Top 10 - { selectedCategory }</p>
+        <StyledCategoryBooks>
+            <StyledCategoryBooks.Header>
+                <StyledButton onClick={() => { setSelectedCategory(null) }}>
+                    <span>Go back</span>
+                </StyledButton>
+                <div>
+                    <span>{ selectedCategory.display_name }</span>
+                </div>
+            </StyledCategoryBooks.Header>
             <div>
                 {books.map(book => <SingleCategoryBookView key={book.primary_isbn10} book={book} />)}
             </div>
-        </>
+        </StyledCategoryBooks>
     )
 }
 

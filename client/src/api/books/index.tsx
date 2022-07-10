@@ -1,4 +1,4 @@
-import { getHeaders } from '../config';
+import { getHeaders, handleErrors } from '../config';
 
 /**
  * Get all book categories.
@@ -9,7 +9,7 @@ export const getCategories = () => fetch('/api/categories', {
     method: 'GET',
     headers: getHeaders(),
 })
-    .then(res => res)
+    .then(handleErrors)
     .then(res => res.json());
 
 /**
@@ -22,5 +22,5 @@ export const getTopByCategory = (category: string) => fetch(`/api/categories/${c
     method: 'GET',
     headers: getHeaders(),
 })
-    .then(res => res)
+    .then(handleErrors)
     .then(res => res.json());

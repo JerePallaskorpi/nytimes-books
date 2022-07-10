@@ -16,3 +16,8 @@
   - $ npm i
   - $ npm start
   - Server should be running at http://localhost:4000
+  
+## Images from app
+
+![image](https://user-images.githubusercontent.com/14965451/178146739-51b7da84-fda9-40fc-91d1-b46906745a0f.png)
+

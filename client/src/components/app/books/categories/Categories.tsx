@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import CategoriesView from './CategoriesView';
 import { getCategories } from '../../../../api/books';
 import CategoryBooks from './category-books/CategoryBooks';
-import { sleep } from '../../../../utils';
 import { Category } from '../../../../../../server/src/types/books';
+import FullscreenLoading from '../../shared/FullscreenLoading';
 
 interface IState {
     loading: boolean;
     categories: Category[];
-    selectedCategory: string | null;
+    selectedCategory: Category | null;
     fetchError: boolean;
 }
 
@@ -28,7 +28,6 @@ const Categories = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             setLoading(true);
-            await sleep(1000);
             try {
                 const res = await getCategories();
                 setCategories(res);
@@ -42,13 +41,9 @@ const Categories = () => {
         fetchCategories();
     }, []);
 
-    if (loading) {
-        return <p>Loading</p>
-    }
+    if (loading) return <FullscreenLoading />
 
-    if (fetchError) {
-        return <p>Error</p>
-    }
+    if (fetchError) return <p>Something went wrong.</p>
 
     if (selectedCategory === null) {
         return (

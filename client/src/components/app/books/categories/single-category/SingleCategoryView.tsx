@@ -1,18 +1,21 @@
 import React from 'react';
 import { Category } from '../../../../../../../server/src/types/books';
+import StyledSingleCategory from '../../../../ui/block/books/categories/SingleCategory';
 
 interface IProps {
     category: Category;
-    setSelectedCategory: (selectedCategory: string | null) => void;
+    setSelectedCategory: (selectedCategory: Category | null) => void;
 }
 
 const SingleCategoryView = (props: IProps) => {
     const { category, setSelectedCategory } = props;
 
     return (
-        <div onClick={() => { setSelectedCategory(category.list_name_encoded) }}>
+        <StyledSingleCategory
+            onClick={() => { setSelectedCategory(category) }}
+        >
             <p>{ category.display_name }</p>
-        </div>
+        </StyledSingleCategory>
     )
 }
 

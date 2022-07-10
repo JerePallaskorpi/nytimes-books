@@ -1,6 +1,7 @@
 interface IResponse {
     status: number;
     statusText: string;
+    json: Function;
 }
 
 /**
